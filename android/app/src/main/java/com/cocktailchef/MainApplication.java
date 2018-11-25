@@ -1,4 +1,4 @@
-package com.cocktails;
+package com.cocktailchef;
 
 import android.app.Application;
 

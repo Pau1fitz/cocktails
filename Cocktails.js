@@ -16,9 +16,7 @@ export default class Cocktails extends Component  {
   static navigationOptions = {
     headerTintColor: 'rgb(25, 25, 65)',
     headerStyle: {
-      backgroundColor: '#f3f3f3',
-      borderBottomColor: 'rgb(25, 25, 65)',
-      borderBottomWidth: 2,
+
     }
   };
 
@@ -146,6 +144,6 @@ const CocktailImage = styled.Image`
   position: absolute;
   right: 10px;
   border-radius: 25px;
-  border-color: #4E65F6;
+  border-color: rgb(25, 25, 65);
   border-width: 2px;
 `

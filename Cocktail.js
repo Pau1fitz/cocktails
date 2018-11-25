@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
+  Image,
+  ImageBackground
 } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -10,7 +12,6 @@ export default class Cocktail extends Component  {
   static navigationOptions = {
     headerTintColor: 'rgb(25, 25, 65)',
     headerStyle: {
-      backgroundColor: '#f3f3f3',
       borderBottomColor: 'rgb(25, 25, 65)',
       borderBottomWidth: 2,
     }
@@ -134,7 +135,7 @@ const CocktailImage = styled.Image`
   height: 100px;
   width: 100px;
   border-radius: 50px;
-  border-color: #4E65F6;
+  border-color: rgb(25, 25, 65);
   border-width: 2px;
   align-self: center;
 `

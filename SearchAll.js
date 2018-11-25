@@ -15,13 +15,7 @@ export default class SearchAll extends Component  {
   static navigationOptions = {
     headerTintColor: 'rgb(25, 25, 65)',
     headerStyle: {
-      backgroundColor: '#f3f3f3',
-      borderBottomColor: 'rgb(25, 25, 65)',
-      borderBottomWidth: 2,
-    },
-    headerTitleStyle: {
-      fontSize: 18,
-    },
+    }
   };
 
   state = {

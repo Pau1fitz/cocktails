@@ -3,22 +3,18 @@ import {
   Text, 
   View, 
   ScrollView, 
-  Image, 
   FlatList,
+  Image, 
   TextInput,
   TouchableHighlight
 } from 'react-native'
 import styled from 'styled-components/native'
 
-
 export default class Cocktails extends Component  {
 
   static navigationOptions = {
-    headerTintColor: 'rgb(25, 25, 65)',
-    headerStyle: {
-
-    }
-  };
+    headerTintColor: 'rgb(25, 25, 65)'
+  }
 
   state = {
     cocktails: [],
@@ -37,7 +33,6 @@ export default class Cocktails extends Component  {
     })
   }
 
-
   filterList = (text) => {
     const filteredList = this.state.cocktails.filter(cocktail => {
       return cocktail.strDrink.toLowerCase().includes(text.toLowerCase())
@@ -49,21 +44,18 @@ export default class Cocktails extends Component  {
   }
 
   render() {
-
     const { cocktails, filteredList } = this.state
-
+    
     return (
       <MainContainer>
         <CocktailHeaderContainer>
           <CocktailHeader>Cocktails</CocktailHeader>
         </CocktailHeaderContainer>
-
         <Input
           style={{height: 40}}
           placeholder='Search for a cocktail...'
           onChangeText={(text) => this.filterList(text)}
         />
-
         {filteredList && filteredList.length === 0 && (
           <CenteredText>No results</CenteredText>
         )}

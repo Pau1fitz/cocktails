@@ -11,13 +11,10 @@ import {
 import styled from 'styled-components/native'
 
 export default class Ingredients extends Component  {
-
+  
   static navigationOptions = {
-    headerTintColor: 'rgb(25, 25, 65)',
-    headerStyle: {
-
-    }
-  };
+    headerTintColor: 'rgb(25, 25, 65)'
+  }
 
   state = {
     ingredients: [],
@@ -50,6 +47,7 @@ export default class Ingredients extends Component  {
 
     return (
       <MainContainer>
+      
         <CocktailHeaderContainer>
           <CocktailHeader>Ingredients</CocktailHeader>
         </CocktailHeaderContainer>

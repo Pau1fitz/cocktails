@@ -13,10 +13,8 @@ import styled from 'styled-components/native'
 export default class SearchAll extends Component  {
 
   static navigationOptions = {
-    headerTintColor: 'rgb(25, 25, 65)',
-    headerStyle: {
-    }
-  };
+    headerTintColor: 'rgb(25, 25, 65)'
+  }
 
   state = {
     ingredients: [],
@@ -51,6 +49,7 @@ export default class SearchAll extends Component  {
 
     return (
       <MainContainer>
+  
         <CocktailHeaderContainer>
           <CocktailHeader>Search All</CocktailHeader>
         </CocktailHeaderContainer>
@@ -141,6 +140,6 @@ const CocktailImage = styled.Image`
   position: absolute;
   right: 10px;
   border-radius: 25px;
-  border-color: #4E65F6;
+  border-color: rgb(25, 25, 65);
   border-width: 2px;
 `

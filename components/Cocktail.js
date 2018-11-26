@@ -10,11 +10,7 @@ import styled from 'styled-components/native'
 export default class Cocktail extends Component  {
 
   static navigationOptions = {
-    headerTintColor: 'rgb(25, 25, 65)',
-    headerStyle: {
-      borderBottomColor: 'rgb(25, 25, 65)',
-      borderBottomWidth: 2,
-    }
+    headerTintColor: 'rgb(25, 25, 65)'
   }
 
   state = {

@@ -1,99 +1,152 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, Image } from 'react-native'
+import { View, Text, TouchableHighlight, Image, Platform } from 'react-native'
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation'
 import styled from 'styled-components/native'
-import Cocktails from './Cocktails'
-import Cocktail from './Cocktail'
-import SearchAll from './SearchAll'
-import Ingredients from './Ingredients'
+import Cocktails from './components/Cocktails'
+import Cocktail from './components/Cocktail'
+import SearchAll from './components/SearchAll'
+import Ingredients from './components/Ingredients'
+import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/FontAwesome5'
+class Home extends Component {
 
-const Home = ({ navigation }) => {
-  return(
-    <MainContainer>
-    
-      <CocktailHeader>Cocktail Chef</CocktailHeader>
-      
-      <LogoImage source={require('./cocktail.png')}/>
+  render() {
+    const { navigation } = this.props
+      return(
+      <MainContainer>
+        <View>
+          <CocktailHeader>Cocktail Chef</CocktailHeader>
+        </View>
+        <View>
+          <LogoImage source={require('./cocktail.png')}/>
+        </View>
+        <ScrollView>
+          <CocktailContainer>
+            <TouchableHighlight 
+              onPress={() => navigation.navigate('SearchAll')}
+              activeOpacity={0.5}
+              underlayColor={'transparent'}
+            >
+              <CocktailText>Search All Drinks</CocktailText>
+            </TouchableHighlight>
+          </CocktailContainer>
 
-      <View>
-        <CocktailContainer>
-          <TouchableHighlight 
-            onPress={() => navigation.navigate('SearchAll')}
-            activeOpacity={0.5}
-            underlayColor={'transparent'}
-          >
-            <CocktailText>Search All Drinks</CocktailText>
-          </TouchableHighlight>
-        </CocktailContainer>
+          <CocktailContainer>
+            <TouchableHighlight 
+              onPress={() => navigation.navigate('Cocktails')}
+              activeOpacity={0.5}
+              underlayColor={'transparent'}
+            >
+              <CocktailText>Popular Cocktails</CocktailText>
+            </TouchableHighlight>
+          </CocktailContainer>
 
-        <CocktailContainer>
-          <TouchableHighlight 
-            onPress={() => navigation.navigate('Cocktails')}
-            activeOpacity={0.5}
-            underlayColor={'transparent'}
-          >
-            <CocktailText>Popular Cocktails</CocktailText>
-          </TouchableHighlight>
-        </CocktailContainer>
+          <CocktailContainer>
+            <TouchableHighlight 
+              onPress={() => navigation.navigate('Ingredients')}
+              activeOpacity={0.5}
+              underlayColor={'transparent'}
+            >
+              <CocktailText>Search By Ingredients</CocktailText>
+            </TouchableHighlight>
+          </CocktailContainer>
 
-        <CocktailContainer>
-          <TouchableHighlight 
-            onPress={() => navigation.navigate('Ingredients')}
-            activeOpacity={0.5}
-            underlayColor={'transparent'}
-          >
-            <CocktailText>Search By Ingredients</CocktailText>
-          </TouchableHighlight>
-        </CocktailContainer>
-
-        <CocktailContainer>
-          <TouchableHighlight 
-            onPress={() => navigation.navigate('Cocktail', { random: true })}
-            activeOpacity={0.5}
-            underlayColor={'transparent'}
-          >
-            <CocktailText>Random Cocktail</CocktailText>
-          </TouchableHighlight>
-        </CocktailContainer>
-      </View>
-    </MainContainer>
-  )
+          <CocktailContainer>
+            <TouchableHighlight 
+              onPress={() => navigation.navigate('Cocktail', { random: true })}
+              activeOpacity={0.5}
+              underlayColor={'transparent'}
+            >
+              <CocktailText>Random Cocktail</CocktailText>
+            </TouchableHighlight>
+          </CocktailContainer>
+        </ScrollView>
+      </MainContainer>
+      )
+  }
 }
 
-const RootStack = createStackNavigator(
-    {
-      Home: Home,
-      Cocktail: Cocktail,
-      Cocktails: Cocktails,
-      SearchAll: SearchAll,
-      Ingredients: Ingredients
-    },
-    {
-      initialRouteName: 'Home',
-    }
-);
+const NavigationStack = page => createStackNavigator({
+  Home: Home,
+  Cocktails: Cocktails,
+  Ingredients: Ingredients,
+  SearchAll: SearchAll,
+  Cocktail: Cocktail
+}, {
+  initialRouteName: page,
+  headerTintColor: 'rgb(25, 25, 65)',
+});
 
 const BottomNavigator = createBottomTabNavigator(
   {
-    Home: RootStack,
-    Ingredients: Ingredients,
-    Cocktails: Cocktails,
-    SearchAll: SearchAll,
-  },
-  {
-    tabBarOptions: {
-      activeTintColor: 'rgb(25, 25, 65)',
-      labelStyle: {
-        fontSize: 14,
+    HomeTab: {
+      screen: NavigationStack('Home'),
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarOptions: {
+          showIcon: true,
+          activeTintColor: 'rgb(25, 25, 65)',
+          labelStyle: {
+            fontSize: 14,
+          }
+        },
+        tabBarIcon: () => (
+          <Icon name={'home'} size={18} color={'rgb(25, 25, 65)'} />
+        )
       },
-      style: {
-
+    },
+    CocktailsTab: {
+      screen: NavigationStack('Cocktails'),
+      navigationOptions: {
+        tabBarLabel: 'Cocktails',
+        tabBarOptions: {
+          showIcon: true,
+          activeTintColor: 'rgb(25, 25, 65)',
+          labelStyle: {
+            fontSize: 14,
+          }
+        },
+        tabBarIcon: () => (
+          <Icon name={'cocktail'} size={18} color={'rgb(25, 25, 65)'} />
+        )
+      },
+    },
+    IngredientsTab: {
+      screen: NavigationStack('Ingredients'),
+      navigationOptions: {
+        tabBarLabel: 'Ingredients',
+        tabBarOptions: {
+          showIcon: true,
+          activeTintColor: 'rgb(25, 25, 65)',
+          labelStyle: {
+            fontSize: 14,
+          }
+        },
+        tabBarIcon: () => (
+          <Icon name={'wine-bottle'} size={18} color={'rgb(25, 25, 65)'} />
+        )
+      },
+    },
+    SearchAllTab: {
+      screen: NavigationStack('SearchAll'),
+      navigationOptions: {
+        tabBarLabel: 'Search All',
+        tabBarOptions: {
+          showIcon: true,
+          activeTintColor: 'rgb(25, 25, 65)',
+          labelStyle: {
+            fontSize: 14,
+          }
+        },
+        tabBarIcon: () => (
+          <Icon name={'search'} size={18} color={'rgb(25, 25, 65)'} />
+        )
       },
     }
   }
 )
 
-const AppContainer = createAppContainer(BottomNavigator);
+const AppContainer = createAppContainer(BottomNavigator)
 
 export default class App extends Component {
   render() {
@@ -119,8 +172,8 @@ const CocktailHeader = styled.Text`
   font-size: 32px;
   font-weight: 800;
   font-family: Avenir;
-  align-self: center;
   padding: 10px 0 0 0;
+  align-self: center;
 `
 
 const CocktailText = styled.Text`

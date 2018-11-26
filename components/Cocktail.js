@@ -6,7 +6,7 @@ import {
   ImageBackground
 } from 'react-native'
 import styled from 'styled-components/native'
-
+import LoadingIndicator from './LoadingIndicator'
 export default class Cocktail extends Component  {
 
   static navigationOptions = {
@@ -49,30 +49,38 @@ export default class Cocktail extends Component  {
     }
     return (
       <CocktailContainer>
-          <CocktailHeader>{cocktail.strDrink}</CocktailHeader>
-          <CocktailImage source={{uri: cocktail.strDrinkThumb}} />
-          <HeaderUnderlineView>
-            <CocktailSubheader>Glass</CocktailSubheader>
-          </HeaderUnderlineView>
-          <CocktailText>{cocktail.strGlass}</CocktailText>
-          <HeaderUnderlineView>
-            <CocktailSubheader>Instructions</CocktailSubheader>
-          </HeaderUnderlineView>
           {
-            instructions.map((instruction, index) => (
-              <CocktailText key={index}>{instruction.replace(/\./g,'')}.</CocktailText>
-            ))
-          }
-         <HeaderUnderlineView>
-          <CocktailSubheader>Ingredients</CocktailSubheader>
-         </HeaderUnderlineView>
-          {
-            ingredients.map((ingredient, index) => (
-              <UnderlineView key={index}>
-                <CocktailText>{ingredient} <SmallCocktailText>{cocktail[`strMeasure${index + 1}`]}</SmallCocktailText></CocktailText>
-              </UnderlineView>
-            
-            ))
+            Object.keys(cocktail).length === 0 ? (
+              <LoadingIndicator />
+            ) : (
+              <View>
+                <CocktailHeader>{cocktail.strDrink}</CocktailHeader>
+                <CocktailImage source={{uri: cocktail.strDrinkThumb}} />
+                <HeaderUnderlineView>
+                  <CocktailSubheader>Glass</CocktailSubheader>
+                </HeaderUnderlineView>
+                <CocktailText>{cocktail.strGlass}</CocktailText>
+                <HeaderUnderlineView>
+                  <CocktailSubheader>Instructions</CocktailSubheader>
+                </HeaderUnderlineView>
+                {
+                  instructions.map((instruction, index) => (
+                    <CocktailText key={index}>{instruction.replace(/\./g,'')}.</CocktailText>
+                  ))
+                }
+              <HeaderUnderlineView>
+                <CocktailSubheader>Ingredients</CocktailSubheader>
+              </HeaderUnderlineView>
+                {
+                  ingredients.map((ingredient, index) => (
+                    <UnderlineView key={index}>
+                      <CocktailText>{ingredient} <SmallCocktailText>{cocktail[`strMeasure${index + 1}`]}</SmallCocktailText></CocktailText>
+                    </UnderlineView>
+                  
+                  ))
+                }
+              </View>
+            )
           }
       </CocktailContainer>
     );

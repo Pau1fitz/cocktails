@@ -9,6 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native'
 import styled from 'styled-components/native'
+import LoadingIndicator from './LoadingIndicator'
 
 export default class Cocktails extends Component  {
 
@@ -59,23 +60,30 @@ export default class Cocktails extends Component  {
         {filteredList && filteredList.length === 0 && (
           <CenteredText>No results</CenteredText>
         )}
-        <FlatList
-          data={filteredList ? filteredList : cocktails}
-          keyExtractor={item => item.idDrink}
-          renderItem={({item}) => (
-            <TouchableHighlight 
-              onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
-              activeOpacity={0.5}
-              underlayColor={'transparent'}
-            >               
-              <CocktailContainer>
-                <CocktailText>{item.strDrink}</CocktailText>
-                <CocktailImage source={{uri: item.strDrinkThumb}} />  
-              </CocktailContainer>
-            </TouchableHighlight>
-            )
-          }
-        />
+
+        {
+          cocktails.length === 0 ? (
+            <LoadingIndicator />
+          ) : (
+            <FlatList
+              data={filteredList ? filteredList : cocktails}
+              keyExtractor={item => item.idDrink}
+              renderItem={({item}) => (
+                <TouchableHighlight 
+                  onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
+                  activeOpacity={0.5}
+                  underlayColor={'transparent'}
+                >               
+                  <CocktailContainer>
+                    <CocktailText>{item.strDrink}</CocktailText>
+                    <CocktailImage source={{uri: item.strDrinkThumb}} />  
+                  </CocktailContainer>
+                </TouchableHighlight>
+                )
+              }
+            />
+          )
+        }
       </MainContainer>
     );
   }

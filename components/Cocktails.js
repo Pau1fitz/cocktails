@@ -46,53 +46,62 @@ export default class Cocktails extends Component  {
 
   render() {
     const { cocktails, filteredList } = this.state
-    
-    return (
-      <MainContainer>
-        <CocktailHeaderContainer>
-          <CocktailHeader>Cocktails</CocktailHeader>
-        </CocktailHeaderContainer>
-        <Input
-          style={{height: 40}}
-          placeholder='Search for a cocktail...'
-          onChangeText={(text) => this.filterList(text)}
-        />
-        {filteredList && filteredList.length === 0 && (
-          <CenteredText>No results</CenteredText>
-        )}
 
+    return (
+      <CocktailHolderContainer>
         {
           cocktails.length === 0 ? (
-            <LoadingIndicator />
+              <LoadingIndicator />
           ) : (
-            <FlatList
-              data={filteredList ? filteredList : cocktails}
-              keyExtractor={item => item.idDrink}
-              renderItem={({item}) => (
-                <TouchableHighlight 
-                  onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
-                  activeOpacity={0.5}
-                  underlayColor={'transparent'}
-                >               
-                  <CocktailContainer>
-                    <CocktailText>{item.strDrink}</CocktailText>
-                    <CocktailImage source={{uri: item.strDrinkThumb}} />  
-                  </CocktailContainer>
-                </TouchableHighlight>
-                )
-              }
-            />
+            <MainContainer>
+              <CocktailHeaderContainer>
+                <CocktailHeader>Cocktails</CocktailHeader>
+              </CocktailHeaderContainer>
+              <Input
+                style={{height: 40}}
+                placeholder='Search for a cocktail...'
+                onChangeText={(text) => this.filterList(text)}
+              />
+              {filteredList && filteredList.length === 0 && (
+                <CenteredText>No results</CenteredText>
+              )}
+    
+              <FlatList
+                data={filteredList ? filteredList : cocktails}
+                keyExtractor={item => item.idDrink}
+                renderItem={({item}) => (
+                  <TouchableHighlight 
+                    onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
+                    activeOpacity={0.5}
+                    underlayColor={'transparent'}
+                  >               
+                    <CocktailContainer>
+                      <CocktailText>{item.strDrink}</CocktailText>
+                      <CocktailImage source={{uri: item.strDrinkThumb}} />  
+                    </CocktailContainer>
+                  </TouchableHighlight>
+                  )
+                }
+              />
+            </MainContainer>
           )
         }
-      </MainContainer>
+      </CocktailHolderContainer>
     );
   }
 }
+
+
 
 const MainContainer = styled.ScrollView`
   display: flex;
   flex: 1;
   margin: 0 10px;
+`
+
+const CocktailHolderContainer = styled.View`
+  display: flex;
+  flex: 1;
 `
 
 const CocktailHeaderContainer = styled.View`

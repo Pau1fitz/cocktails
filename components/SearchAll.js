@@ -17,8 +17,7 @@ export default class SearchAll extends Component  {
   }
 
   state = {
-    ingredients: [],
-    filteredList: null
+    results: [],
   }
 
   async componentDidMount() {
@@ -60,7 +59,7 @@ export default class SearchAll extends Component  {
           onChangeText={(text) => this.updateSearch(text)}
         />
 
-        {results && results.length === 0 && (
+        {results == null && (
           <CenteredText>No results</CenteredText>
         )}
         <FlatList

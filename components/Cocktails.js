@@ -91,8 +91,6 @@ export default class Cocktails extends Component  {
   }
 }
 
-
-
 const MainContainer = styled.ScrollView`
   display: flex;
   flex: 1;

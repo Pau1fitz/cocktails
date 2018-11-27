@@ -6,7 +6,8 @@ import {
   Image, 
   FlatList,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -29,6 +30,8 @@ export default class Ingredients extends Component  {
     this.setState({
       ingredients
     })
+
+    AsyncStorage.clear()
   }
 
   filterList = (text) => {

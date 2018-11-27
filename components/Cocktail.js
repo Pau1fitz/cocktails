@@ -3,10 +3,12 @@ import {
   View,
   Text,
   Image,
-  ImageBackground
+  AsyncStorage,
+  TouchableHighlight
 } from 'react-native'
 import styled from 'styled-components/native'
 import LoadingIndicator from './LoadingIndicator'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 export default class Cocktail extends Component  {
 
   static navigationOptions = {
@@ -27,8 +29,46 @@ export default class Cocktail extends Component  {
     this.setState({
       cocktail: json.drinks[0]
     })
+
+    this.retrieveData()
   }
 
+  retrieveData = async () => {
+
+    try {
+      const value = await AsyncStorage.getItem('cocktails');
+      if (value !== null) {
+        this.setState({
+          savedCocktails: JSON.parse(value)
+        })
+      } else {
+        this.setState({
+          savedCocktails: []
+        })
+      }
+     } catch (error) {
+       // Error retrieving data
+     }
+  }
+
+  storeData = async (cocktail) => {
+    const { savedCocktails } = this.state
+    const idDrink = cocktail.idDrink
+    const strDrink = cocktail.strDrink
+    const strDrinkThumb = cocktail.strDrinkThumb
+    const savedCocktail = {
+      idDrink,
+      strDrink,
+      strDrinkThumb
+    }
+
+    let allSavedCocktails = [...savedCocktails, savedCocktail]
+    try {
+      await AsyncStorage.setItem('cocktails', JSON.stringify(allSavedCocktails));
+    } catch (error) {
+ 
+    }
+  }
 
   render() {
     const { cocktail } = this.state
@@ -56,6 +96,13 @@ export default class Cocktail extends Component  {
               <View>
                 <CocktailHeader>{cocktail.strDrink}</CocktailHeader>
                 <CocktailImage source={{uri: cocktail.strDrinkThumb}} />
+                <TouchableHighlight 
+                    onPress={() => this.storeData(cocktail)}
+                    activeOpacity={0.5}
+                    underlayColor={'transparent'}
+                  >   
+                    <Icon name={'heart'} size={18} color={'rgb(25, 25, 65)'} />
+                  </TouchableHighlight> 
                 <HeaderUnderlineView>
                   <CocktailSubheader>Glass</CocktailSubheader>
                 </HeaderUnderlineView>
@@ -110,7 +157,7 @@ const CocktailHeader = styled.Text`
   font-weight: 800;
   font-family: Avenir;
   align-self: center;
-  padding: 10px 0 0 0;
+  padding: 10px 0 10px 0;
 `
 
 const CocktailSubheader = styled.Text`

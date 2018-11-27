@@ -6,7 +6,8 @@ import Cocktails from './components/Cocktails'
 import Cocktail from './components/Cocktail'
 import SearchAll from './components/SearchAll'
 import Ingredients from './components/Ingredients'
-import { ScrollView } from 'react-native-gesture-handler';
+import Favourites from './components/Favourites'
+import { ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 class Home extends Component {
 
@@ -60,6 +61,16 @@ class Home extends Component {
               <CocktailText>Random Cocktail</CocktailText>
             </TouchableHighlight>
           </CocktailContainer>
+
+          <CocktailContainer>
+            <TouchableHighlight 
+              onPress={() => navigation.navigate('Favourites', { random: true })}
+              activeOpacity={0.5}
+              underlayColor={'transparent'}
+            >
+              <CocktailText>My Favourites</CocktailText>
+            </TouchableHighlight>
+          </CocktailContainer>
         </ScrollView>
       </MainContainer>
       )
@@ -71,7 +82,8 @@ const NavigationStack = page => createStackNavigator({
   Cocktails: Cocktails,
   Ingredients: Ingredients,
   SearchAll: SearchAll,
-  Cocktail: Cocktail
+  Cocktail: Cocktail,
+  Favourites: Favourites
 }, {
   initialRouteName: page,
   headerTintColor: 'rgb(25, 25, 65)',

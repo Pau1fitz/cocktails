@@ -10,6 +10,8 @@ import {
   AsyncStorage
 } from 'react-native'
 
+import Swipeout from 'react-native-swipeout';
+
 import styled from 'styled-components/native'
 import LoadingIndicator from './LoadingIndicator'
 
@@ -54,10 +56,24 @@ export default class Favourites extends Component  {
     })
   }
 
+  removeItem = async (item) => {
+    let cocktails = this.state.cocktails
+    cocktails = cocktails.filter(cocktail => {
+      return cocktail.idDrink !== item.idDrink
+    })
+    this.setState({
+      cocktails
+    })
+
+    try {
+      await AsyncStorage.setItem('cocktails', JSON.stringify(cocktails));
+    } catch (error) {
+      // catch
+    }
+  }
+
   render() {
     const { cocktails, filteredList } = this.state
-
-    console.log(cocktails)
 
     return (
       <CocktailHolderContainer>
@@ -82,16 +98,29 @@ export default class Favourites extends Component  {
                 data={filteredList ? filteredList : cocktails}
                 keyExtractor={item => item.idDrink}
                 renderItem={({item}) => (
-                  <TouchableHighlight 
-                    onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
-                    activeOpacity={0.5}
-                    underlayColor={'transparent'}
-                  >               
-                    <CocktailContainer>
-                      <CocktailText>{item.strDrink}</CocktailText>
-                      <CocktailImage source={{uri: item.strDrinkThumb}} />  
-                    </CocktailContainer>
-                  </TouchableHighlight>
+                  <Swipeout 
+                    right={[
+                      {
+                        text: 'Delete',
+                        backgroundColor: 'red',
+                        onPress:  () => {this.removeItem(item)}
+                      }
+                    ]}
+                    backgroundColor={'transparent'}
+                  >
+                    <View>
+                    <TouchableHighlight 
+                      onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
+                      activeOpacity={0.5}
+                      underlayColor={'transparent'}
+                    >               
+                      <CocktailContainer>
+                        <CocktailText>{item.strDrink}</CocktailText>
+                        <CocktailImage source={{uri: item.strDrinkThumb}} />  
+                      </CocktailContainer>
+                    </TouchableHighlight>
+                    </View>
+                  </Swipeout>
                   )
                 }
               />

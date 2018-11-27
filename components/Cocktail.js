@@ -17,6 +17,7 @@ export default class Cocktail extends Component  {
 
   state = {
     cocktail: {},
+    favouriteClicked: false
   }
 
   async componentDidMount() {
@@ -65,13 +66,16 @@ export default class Cocktail extends Component  {
     let allSavedCocktails = [...savedCocktails, savedCocktail]
     try {
       await AsyncStorage.setItem('cocktails', JSON.stringify(allSavedCocktails));
+      this.setState({
+        favouriteClicked: true
+      })
     } catch (error) {
  
     }
   }
 
   render() {
-    const { cocktail } = this.state
+    const { cocktail, favouriteClicked } = this.state
 
     const instructions = cocktail && cocktail.strInstructions && cocktail.strInstructions.split('. ') || []
     let ingredients = []
@@ -101,7 +105,7 @@ export default class Cocktail extends Component  {
                     activeOpacity={0.5}
                     underlayColor={'transparent'}
                   >   
-                    <Icon name={'heart'} size={18} color={'rgb(25, 25, 65)'} />
+                    <Icon solid={favouriteClicked ? true : false} name={'heart'} size={18} color={'rgb(25, 25, 65)'} />
                   </TouchableHighlight> 
                 <HeaderUnderlineView>
                   <CocktailSubheader>Glass</CocktailSubheader>

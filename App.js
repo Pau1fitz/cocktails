@@ -123,22 +123,6 @@ const BottomNavigator = createBottomTabNavigator(
         )
       },
     },
-    IngredientsTab: {
-      screen: NavigationStack('Ingredients'),
-      navigationOptions: {
-        tabBarLabel: 'Ingredients',
-        tabBarOptions: {
-          showIcon: true,
-          activeTintColor: 'rgb(25, 25, 65)',
-          labelStyle: {
-            fontSize: 14,
-          }
-        },
-        tabBarIcon: () => (
-          <Icon name={'wine-bottle'} size={18} color={'rgb(25, 25, 65)'} />
-        )
-      },
-    },
     SearchAllTab: {
       screen: NavigationStack('SearchAll'),
       navigationOptions: {
@@ -154,6 +138,22 @@ const BottomNavigator = createBottomTabNavigator(
           <Icon name={'search'} size={18} color={'rgb(25, 25, 65)'} />
         )
       },
+    },
+    FavouritesTab: {
+      screen: NavigationStack('Favourites'),
+      navigationOptions: {
+        tabBarLabel: 'Favourites',
+        tabBarOptions: {
+          showIcon: true,
+          activeTintColor: 'rgb(25, 25, 65)',
+          labelStyle: {
+            fontSize: 14,
+          }
+        },
+        tabBarIcon: () => (
+          <Icon name={'heart'} size={18} color={'rgb(25, 25, 65)'} />
+        )
+      }
     }
   }
 )

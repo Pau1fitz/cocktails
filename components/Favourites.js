@@ -77,56 +77,51 @@ export default class Favourites extends Component  {
 
     return (
       <CocktailHolderContainer>
-        {
-          cocktails.length === 0 ? (
-              <LoadingIndicator />
-          ) : (
-            <MainContainer>
-              <CocktailHeaderContainer>
-                <CocktailHeader>Cocktails</CocktailHeader>
-              </CocktailHeaderContainer>
-              <Input
-                style={{height: 40}}
-                placeholder='Search for a cocktail...'
-                onChangeText={(text) => this.filterList(text)}
-              />
-              {filteredList && filteredList.length === 0 && (
-                <CenteredText>No results</CenteredText>
-              )}
-    
-              <FlatList
-                data={filteredList ? filteredList : cocktails}
-                keyExtractor={item => item.idDrink}
-                renderItem={({item}) => (
-                  <Swipeout 
-                    right={[
-                      {
-                        text: 'Delete',
-                        backgroundColor: 'red',
-                        onPress:  () => {this.removeItem(item)}
-                      }
-                    ]}
-                    backgroundColor={'transparent'}
-                  >
-                    <View>
-                    <TouchableHighlight 
-                      onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
-                      activeOpacity={0.5}
-                      underlayColor={'transparent'}
-                    >               
-                      <CocktailContainer>
-                        <CocktailText>{item.strDrink}</CocktailText>
-                        <CocktailImage source={{uri: item.strDrinkThumb}} />  
-                      </CocktailContainer>
-                    </TouchableHighlight>
-                    </View>
-                  </Swipeout>
-                  )
-                }
-              />
-            </MainContainer>
-          )
-        }
+
+        <MainContainer>
+          <CocktailHeaderContainer>
+            <CocktailHeader>My Favourites</CocktailHeader>
+          </CocktailHeaderContainer>
+          <Input
+            style={{height: 40}}
+            placeholder='Search for a cocktail...'
+            onChangeText={(text) => this.filterList(text)}
+          />
+          {(filteredList && filteredList.length === 0 || cocktails.length === 0)&& (
+            <CenteredText>No results</CenteredText>
+          )}
+
+          <FlatList
+            data={filteredList ? filteredList : cocktails}
+            keyExtractor={item => item.idDrink}
+            renderItem={({item}) => (
+              <Swipeout 
+                right={[
+                  {
+                    text: 'Delete',
+                    backgroundColor: 'red',
+                    onPress:  () => {this.removeItem(item)}
+                  }
+                ]}
+                backgroundColor={'transparent'}
+              >
+                <View>
+                <TouchableHighlight 
+                  onPress={() => this.props.navigation.navigate('Cocktail', { id: item.idDrink })}
+                  activeOpacity={0.5}
+                  underlayColor={'transparent'}
+                >               
+                  <CocktailContainer>
+                    <CocktailText>{item.strDrink}</CocktailText>
+                    <CocktailImage source={{uri: item.strDrinkThumb}} />  
+                  </CocktailContainer>
+                </TouchableHighlight>
+                </View>
+              </Swipeout>
+              )
+            }
+          />
+        </MainContainer>
       </CocktailHolderContainer>
     );
   }

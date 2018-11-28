@@ -87,7 +87,7 @@ const NavigationStack = page => createStackNavigator({
 }, {
   initialRouteName: page,
   headerTintColor: 'rgb(25, 25, 65)',
-});
+})
 
 const BottomNavigator = createBottomTabNavigator(
   {
